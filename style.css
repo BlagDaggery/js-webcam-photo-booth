@@ -7,7 +7,7 @@ html {
 }
 
 html {
-  font-size: 10px;
+  font-family: Arial, Helvetica, sans-serif;
   background: #ffc600;
 }
 
@@ -16,6 +16,40 @@ html {
   max-width: 150rem;
   margin: 2rem auto;
   border-radius: 2px;
+}
+
+.controls {
+  padding: 1rem;
+}
+
+.photo-btn {
+  background-color: black;
+  border: none;
+  border-radius: .5rem;
+  color: #ffc600;
+  font-weight: bold;
+  padding: .75rem 1rem;
+}
+
+.rgb {
+  margin: 1rem 0 0;
+}
+
+.rgb.hidden {
+  display: none;
+}
+
+.rgb-group {
+  display: flex;
+}
+
+.rgb-sub {
+  display: flex;
+  margin-right: 1rem;
+}
+
+.rgb-sub label {
+  width: 90px;
 }
 
 /*clearfix*/

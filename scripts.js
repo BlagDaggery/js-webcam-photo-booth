@@ -1,3 +1,5 @@
+const photoBtn = document.querySelector('#photoBtn');
+const rgbControls = document.querySelector('.rgb');
 const video = document.querySelector('.player');
 const canvas = document.querySelector('.photo');
 const ctx = canvas.getContext('2d');
@@ -7,7 +9,6 @@ const snap = document.querySelector('.snap');
 function getVideo() {
     navigator.mediaDevices.getUserMedia({video: true, audio: false })
         .then(localMediaStream => {
-            console.log(localMediaStream);
             video.srcObject = localMediaStream;
             video.play();
         })
@@ -23,13 +24,11 @@ function paintToCanvas() {
 
     setInterval(() => {
         ctx.drawImage(video, 0, 0, width, height);
-        let pixels = ctx.getImageData(0, 0, width, height);
-                
-        //pixels = redEffect(pixels);
-        
-        //pixels = rgbSplit(pixels);
 
-        pixels = greenScreen(pixels);
+        let pixels = ctx.getImageData(0, 0, width, height);
+        let filterValue = document.querySelector('#filter').value;        
+        
+        pixels = setFilter(filterValue, pixels);       
         
         ctx.putImageData(pixels, 0, 0);
     }, 16);
@@ -41,9 +40,11 @@ function takePhoto() {
 
     const data = canvas.toDataURL('image/jpeg');
     const link = document.createElement('a');
+
     link.href = data;
-    link.setAttribute('download', 'handsome');
-    link.innerHTML = `<img src="${data}" alt="Handsome Man" />`;
+    link.setAttribute('download', 'photo-booth');
+    link.innerHTML = `<img src="${data}" alt="It's a picture of you!" />`;
+    
     strip.insertBefore(link, strip.firstChild);
 }
 
@@ -93,6 +94,33 @@ function greenScreen(pixels) {
     return pixels;
 }
 
+function setFilter(filterValue, pixels) {
+    switch (filterValue) {
+        case 'none':
+            pixels = pixels;
+            rgbControls.classList.add('hidden');
+            break;
+        case 'red':
+            pixels = redEffect(pixels);
+            rgbControls.classList.add('hidden');
+            break;
+        case 'rgb-split':
+            pixels = rgbSplit(pixels);
+            rgbControls.classList.add('hidden');
+            break;
+        case 'green-screen':
+            pixels = greenScreen(pixels);
+            rgbControls.classList.remove('hidden');
+            break;
+        default:
+            pixels = pixels;
+            rgbControls.classList.add('hidden');
+    }
+
+    return pixels;
+}
+
 getVideo();
 
 video.addEventListener('canplay', paintToCanvas);
+photoBtn.addEventListener('click', takePhoto);

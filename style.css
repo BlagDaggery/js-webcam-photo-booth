@@ -1,25 +1,27 @@
 html {
   box-sizing: border-box;
-}
-
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-
-html {
   font-family: Arial, Helvetica, sans-serif;
   background: #ffc600;
+  padding: 0 1rem;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
 }
 
 .photobooth {
   background: white;
-  max-width: 150rem;
+  max-width: 60rem;
   margin: 2rem auto;
   border-radius: 2px;
+  position: relative;
 }
 
 .controls {
   padding: 1rem;
+  height: 149px;
 }
 
 .photo-btn {
@@ -66,14 +68,18 @@ html {
 
 .player {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  width:200px;
+  top: -2px;
+  right: -2px;
+  width: 200px;
+  border: 2px solid #ffc600;
 }
 
-/*
-  Strip!
-*/
+@media (max-width: 799px) {
+  .player {
+    top: 150px;
+    right: 0px;
+  }
+}
 
 .strip {
   padding: 2rem;
@@ -83,12 +89,26 @@ html {
   width: 100px;
   overflow-x: scroll;
   padding: 0.8rem 0.8rem 2.5rem 0.8rem;
-  box-shadow: 0 0 3px rgba(0,0,0,0.2);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   background: white;
 }
 
-.strip a:nth-child(5n+1) img { transform: rotate(10deg); }
-.strip a:nth-child(5n+2) img { transform: rotate(-2deg); }
-.strip a:nth-child(5n+3) img { transform: rotate(8deg); }
-.strip a:nth-child(5n+4) img { transform: rotate(-11deg); }
-.strip a:nth-child(5n+5) img { transform: rotate(12deg); }
+.strip a:nth-child(5n+1) img {
+  transform: rotate(10deg);
+}
+
+.strip a:nth-child(5n+2) img {
+  transform: rotate(-2deg);
+}
+
+.strip a:nth-child(5n+3) img {
+  transform: rotate(8deg);
+}
+
+.strip a:nth-child(5n+4) img {
+  transform: rotate(-11deg);
+}
+
+.strip a:nth-child(5n+5) img {
+  transform: rotate(12deg);
+}
